@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.hamza.service.model.UserProfile">
+		<field name="uuid" type="String" />
+		<field name="profileId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="firstName" type="String" />
+		<field name="secondName" type="String" />
+		<field name="lastName" type="String" />
+		<field name="firstNameInEnglish" type="String" />
+		<field name="secondNameInEnglish" type="String" />
+		<field name="lastNameInEnglish" type="String" />
+		<field name="birthDate" type="Date" />
+		<field name="phoneExtension" type="String" />
+		<field name="phoneNumber" type="String" />
+		<field name="nationality" type="String" />
+		<field name="motherTongue" type="String" />
+		<field name="proofName" type="String" />
+		<field name="proofNumber" type="String" />
+		<field name="university" type="String" />
+		<field name="lastEducationalQualification" type="String" />
+		<field name="academicSpecialization" type="String" />
+		<field name="primaryLanguageEducation" type="String" />
+		<field name="timeZone" type="String" />
+		<field name="termsAccepted" type="boolean" />
+		<field name="fileEntryId" type="long" />
+	</model>
+	<model name="com.hamza.service.model.UserProfileAddress">
+		<field name="uuid" type="String" />
+		<field name="addressId" type="long" />
+		<field name="profileId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="country" type="String" />
+		<field name="state" type="String" />
+		<field name="province" type="String" />
+		<field name="city" type="String" />
+		<field name="street" type="String" />
+		<field name="postalCode" type="String" />
+	</model>
+</model-hints>

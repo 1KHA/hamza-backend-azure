@@ -1,0 +1,10 @@
+Bundle-Name: hamza-service-module-api
+Bundle-SymbolicName: com.hamza.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.hamza.service.exception,\
+	com.hamza.service.model,\
+	com.hamza.service.service,\
+	com.hamza.service.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../hamza-service-module-service/service.xml

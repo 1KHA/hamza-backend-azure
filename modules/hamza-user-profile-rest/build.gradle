@@ -1,0 +1,12 @@
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+	compileOnly group: "org.osgi", name: "org.osgi.service.jaxrs"
+
+
+	compileOnly project(":modules:hamza-service-module:hamza-service-module-api")
+
+	compileOnly 'com.google.code.gson:gson:2.8.0'
+
+	// javax.mail is provided by the Liferay portal at runtime; needed only for compilation.
+	compileOnly group: "javax.mail", name: "javax.mail-api", version: "1.6.2"
+}

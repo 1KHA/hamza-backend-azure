@@ -1,0 +1,12 @@
+dependencies {
+	api project(":modules:hamza-service-module:hamza-service-module-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../hamza-service-module-api/src/main/java"
+	testDir = "../hamza-service-module-test/src/testIntegration/java"
+}
+
+group = "com.hamza.service"

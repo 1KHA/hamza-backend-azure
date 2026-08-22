@@ -1,0 +1,8 @@
+Bundle-Name: booking-admin-widget
+Bundle-SymbolicName: com.hamza.booking.admin.widget
+Bundle-Version: 1.0.0
+Export-Package: com.hamza.booking.admin.widget
+-dependency: com.liferay.mail.kernel
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"

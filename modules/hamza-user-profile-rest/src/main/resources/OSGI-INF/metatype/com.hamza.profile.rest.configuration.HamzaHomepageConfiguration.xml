@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0">
+    <OCD 
+        id="com.hamza.profile.rest.configuration.HamzaHomepageConfiguration"
+        name="Hamza Homepage Configuration"
+        description="Configuration for Hamza Homepage content keys">
+        
+        <AD 
+            id="homeBannerContentKey"
+            name="Banner Content"
+            description="Banner content primary key for the homepage"
+            type="String"
+            default="defaultValue"
+            required="false" />
+            
+        <AD 
+            id="homeBannerBoxesContentKey"
+            name="Banner Boxes Content"
+            description="Banner boxes content primary key for the homepage"
+            type="String"
+            default="defaultValue"
+            required="false" />
+            
+        <AD 
+            id="homeEntitiesInsideSaudiArabiaContentKey"
+            name="Entities Inside Saudi Arabia"
+            description="Entities inside Saudi Arabia content primary key for the homepage"
+            type="String"
+            default="defaultValue"
+            required="false" />
+            
+        <AD 
+            id="homeEntitiesOutsideSaudiArabiaContentKey"
+            name="Entities Outside Saudi Arabia"
+            description="Entities outside Saudi Arabia content primary key for the homepage"
+            type="String"
+            default="defaultValue"
+            required="false" />
+    </OCD>
+    
+    <Designate 
+        pid="com.hamza.profile.rest.configuration.HamzaHomepageConfiguration"
+        factory="false">
+        <Object ocdref="com.hamza.profile.rest.configuration.HamzaHomepageConfiguration" />
+    </Designate>
+</metatype:MetaData>

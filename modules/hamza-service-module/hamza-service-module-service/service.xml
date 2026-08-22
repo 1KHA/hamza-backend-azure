@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.hamza.service">
+	<namespace>HAMZA</namespace>
+	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
+	<entity local-service="true" name="UserProfile" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="profileId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" /> <!-- Foreign field from Liferay user table -->
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="firstName" type="String" />
+		<column name="secondName" type="String" />
+		<column name="lastName" type="String" />
+		<column name="firstNameInEnglish" type="String" />
+		<column name="secondNameInEnglish" type="String" />
+		<column name="lastNameInEnglish" type="String" />
+		<column name="birthDate" type="Date" />
+		<column name="phoneExtension" type="String" />
+		<column name="phoneNumber" type="String" />
+		<column name="nationality" type="String" />
+		<column name="motherTongue" type="String" />
+		<column name="proofName" type="String" />
+		<column name="proofNumber" type="String" />
+		<column name="university" type="String" />
+		<column name="lastEducationalQualification" type="String" />
+		<column name="academicSpecialization" type="String" />
+		<column name="primaryLanguageEducation" type="String" />
+		<column name="timeZone" type="String" />
+		<column name="termsAccepted" type="boolean" />
+		<column name="fileEntryId" type="long" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
+		<finder name="UserId" return-type="UserProfile" unique="true">
+			<finder-column name="userId" />
+		</finder>
+
+	</entity>
+
+	<entity local-service="true" name="UserProfileAddress" remote-service="false" uuid="true">
+		<!-- PK fields -->
+		<column name="addressId" primary="true" type="long" />
+
+		<!-- Foreign fields -->
+		<column name="profileId" type="long" />
+		<column name="userId" type="long" />
+
+		<!-- Audit fields -->
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="country" type="String" />
+		<column name="state" type="String" />
+		<column name="province" type="String" />
+		<column name="city" type="String" />
+		<column name="street" type="String" />
+		<column name="postalCode" type="String" />
+
+		<finder name="ProfileId" return-type="UserProfileAddress" unique="true">
+			<finder-column name="profileId" />
+		</finder>
+
+		<finder name="UserId" return-type="UserProfileAddress" unique="true">
+			<finder-column name="userId" />
+		</finder>
+
+	</entity>
+</service-builder>

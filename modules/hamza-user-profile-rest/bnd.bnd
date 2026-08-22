@@ -1,0 +1,5 @@
+Bundle-Name: hamza-user-profile-rest
+Bundle-SymbolicName: com.hamza.profile.rest
+Bundle-Version: 1.0.0
+-includeresource: \
+    @gson-*.jar

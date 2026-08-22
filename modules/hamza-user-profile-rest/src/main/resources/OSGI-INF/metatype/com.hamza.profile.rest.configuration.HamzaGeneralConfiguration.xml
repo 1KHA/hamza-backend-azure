@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.2.0">
+    <OCD 
+        id="com.hamza.profile.rest.configuration.HamzaGeneralConfiguration"
+        name="Hamza General Configuration"
+        description="General configuration settings for Hamza Profile module">
+            
+        <AD 
+            id="featureEnabled"
+            name="Feature Enabled"
+            description="Enable or disable the feature"
+            type="Boolean"
+            default="true"
+            required="false" />
+    </OCD>
+    
+    <Designate 
+        pid="com.hamza.profile.rest.configuration.HamzaGeneralConfiguration"
+        factory="false">
+        <Object ocdref="com.hamza.profile.rest.configuration.HamzaGeneralConfiguration" />
+    </Designate>
+</metatype:MetaData>
