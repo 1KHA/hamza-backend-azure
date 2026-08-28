@@ -1,12 +1,6 @@
 package com.hamza.profile.rest.application.controller;
 
-import com.hamza.profile.rest.util.HamzaConfigurationUtil;
-import com.hamza.profile.rest.util.TestTakersConfigurationUtil;
-import com.hamza.profile.rest.util.OrganizationConfigurationUtil;
-import com.hamza.profile.rest.util.ResearchConfigurationUtil;
-import com.hamza.profile.rest.util.NewsAndArticlesConfigurationUtil;
-import com.hamza.profile.rest.util.AdditionalInformationConfigurationUtil;
-import com.hamza.profile.rest.util.CommonContentConfigurationUtil;
+import com.hamza.profile.rest.util.*;
 import com.hamza.service.service.UserProfileLocalService;
 import com.hamza.service.model.UserProfile;
 import com.hamza.service.exception.NoSuchUserProfileException;

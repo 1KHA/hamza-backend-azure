@@ -343,21 +343,7 @@ public class BookingAdminWidgetPortlet extends MVCPortlet {
 						record.put("testLink", testLink);
 						
 						records.add(record);
-						
-						// Print each record to console
-						_log.info("--------------------------------");
-						_log.info("Record #" + recordCount);
-						_log.info("  Booking ID: " + bookingId);
-						_log.info("  Email: " + email);
-						_log.info("  Test Type: " + testType);
-						_log.info("  Test Date: " + testDate);
-						_log.info("  Booking Status: " + bookingStatus);
-						_log.info("  Test ID: " + testId);
-						_log.info("  Test Username: " + testUsername);
-						_log.info("  Test Password: " + testPassword);
-						_log.info("  Test Link: " + testLink);
-						_log.info("--------------------------------");
-						
+
 						// Update the booking with testId, bookingStatus, testUsername, testPassword and testLink
 						try {
 							long bookingIdLong = Long.parseLong(bookingId);

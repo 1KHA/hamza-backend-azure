@@ -69,7 +69,7 @@ public final class LiferayUserAccountClient {
 			}
 			reader.close();
 
-			LOG.info("Liferay API Response: " + response.toString());
+			LOG.debug("Liferay API Response: " + response.toString());
 			return response.toString();
 
 		} finally {

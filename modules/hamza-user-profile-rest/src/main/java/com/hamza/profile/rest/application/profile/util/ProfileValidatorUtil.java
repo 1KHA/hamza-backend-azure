@@ -39,10 +39,33 @@ public class ProfileValidatorUtil {
 
         if (uploadRequest instanceof UploadRequest) {
             File file = uploadRequest.getFile("file");
+
             if (file == null || !file.exists()) {
                 response.setCode(ErrorCode.NO_PROOF_FILE_FOUND.name());
                 response.setMessage(ErrorCode.NO_PROOF_FILE_FOUND.getMessage());
                 response.setStatus(Status.FAIL.name());
+
+                // Returning true is what makes the caller send the error
+                // response; without it the sign-up proceeded despite the
+                // failure being recorded here.
+                return true;
+            }
+
+            // Size / type / content restrictions, scoped to this endpoint so
+            // other sites on this Liferay instance are unaffected.
+            UploadPolicy.Result uploadCheck = UploadPolicy.check(
+                    file,
+                    uploadRequest.getFileName("file"),
+                    uploadRequest.getContentType("file"));
+
+            if (!uploadCheck.isAccepted()) {
+                LOG.warn("Rejected sign-up ID proof upload: " + uploadCheck.getMessage());
+
+                response.setCode(ErrorCode.INVALID_REQUEST_PAYLOAD_FORMAT.name());
+                response.setMessage(uploadCheck.getMessage());
+                response.setStatus(Status.FAIL.name());
+
+                return true;
             }
         }
 

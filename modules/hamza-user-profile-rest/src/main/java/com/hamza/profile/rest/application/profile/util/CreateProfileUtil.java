@@ -114,7 +114,9 @@ public class CreateProfileUtil {
         profile.setNationality(profileRequest.getNationality());
         profile.setMotherTongue(profileRequest.getMotherTongue());
         profile.setProofName(profileRequest.getProofName());
-        profile.setProofNumber(profileRequest.getPassportNumber());
+        // Personal identifier — encrypted at rest, decrypted when read back.
+        profile.setProofNumber(
+                ProfileFieldCrypto.encrypt(profileRequest.getPassportNumber()));
         profile.setUniversity(profileRequest.getUniversity());
         profile.setLastEducationalQualification(profileRequest.getLastEducationalQualification());
         profile.setAcademicSpecialization(profileRequest.getAcademicSpecialization());

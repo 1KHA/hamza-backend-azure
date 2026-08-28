@@ -19,6 +19,8 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.hamza.profile.rest.application.profile.enums.ErrorCode;
+import com.hamza.profile.rest.application.profile.util.ProfileFieldCrypto;
+import com.hamza.profile.rest.application.profile.util.UploadPolicy;
 import com.hamza.profile.rest.application.profile.enums.Status;
 import com.hamza.profile.rest.application.profile.modal.CreateProfileRequest;
 import com.hamza.profile.rest.application.profile.modal.CreateProfileResponse;
@@ -136,7 +138,10 @@ public class ProfileSelfServiceApplication extends Application {
 		UpdatePasswordResponse updatePasswordResponse = new UpdatePasswordResponse();
 
 		try {
-			LOG.info("Request body: " + gson.toJson(updatePasswordRequest));
+			// Never log the request body here — UpdatePasswordRequest carries the
+			// current and new passwords in cleartext.
+			LOG.info("Password update requested for userId: " +
+					(updatePasswordRequest == null ? 0 : updatePasswordRequest.getUserId()));
 
 			// Validate request
 			if (updatePasswordRequest == null || updatePasswordRequest.getUserId() == 0 ||
@@ -252,7 +257,12 @@ public class ProfileSelfServiceApplication extends Application {
 		CreateProfileResponse profileResponse = new CreateProfileResponse();
 
 		try {
-			LOG.info("Request body: " + gson.toJson(profileRequest));
+			// Do not serialise the profile body — it carries personal data
+			// (identity/passport number, name, e-mail, date of birth).
+			LOG.info("Profile update requested for emailId hash: " +
+					(profileRequest == null || profileRequest.getEmailId() == null
+							? "n/a"
+							: Integer.toHexString(profileRequest.getEmailId().hashCode())));
 
 			if (ProfileValidatorUtil.validateRequestPayload(profileRequest, profileResponse, true)) {
 				return Response.status(Response.Status.BAD_REQUEST)
@@ -321,7 +331,9 @@ public class ProfileSelfServiceApplication extends Application {
 			userProfile.setNationality(profileRequest.getNationality());
 			userProfile.setMotherTongue(profileRequest.getMotherTongue());
 			userProfile.setProofName(profileRequest.getProofName());
-			userProfile.setProofNumber(profileRequest.getPassportNumber());
+			// Personal identifier — encrypted at rest, decrypted when read back.
+			userProfile.setProofNumber(
+					ProfileFieldCrypto.encrypt(profileRequest.getPassportNumber()));
 			userProfile.setUniversity(profileRequest.getUniversity());
 			userProfile.setLastEducationalQualification(profileRequest.getLastEducationalQualification());
 			userProfile.setAcademicSpecialization(profileRequest.getAcademicSpecialization());
@@ -421,7 +433,10 @@ public class ProfileSelfServiceApplication extends Application {
 			userProfileDTO.setNationality(userProfile.getNationality());
 			userProfileDTO.setMotherTongue(userProfile.getMotherTongue());
 			userProfileDTO.setProofName(userProfile.getProofName());
-			userProfileDTO.setPassportNumber(userProfile.getProofNumber());
+			// Returned to the caller in plain text — the user and administrators
+			// see and edit it as before; only the stored column is ciphertext.
+			userProfileDTO.setPassportNumber(
+					ProfileFieldCrypto.decrypt(userProfile.getProofNumber()));
 
 			userProfileDTO.setUniversity(userProfile.getUniversity());
 			userProfileDTO.setLastEducationalQualification(userProfile.getLastEducationalQualification());
@@ -545,9 +560,18 @@ public class ProfileSelfServiceApplication extends Application {
 			String fileName = uploadRequest.getFileName("file");
 			String contentType = uploadRequest.getContentType("file");
 
-			if (file == null || fileName == null || fileName.isEmpty()) {
+			// Size / type / content restrictions are enforced here rather than
+			// through the portal-wide upload properties, so other sites on this
+			// instance are unaffected.
+			UploadPolicy.Result uploadCheck = UploadPolicy.check(
+					file, fileName, contentType);
+
+			if (!uploadCheck.isAccepted()) {
+				LOG.warn("Rejected ID proof upload: " + uploadCheck.getMessage());
+
 				return Response.status(Response.Status.BAD_REQUEST)
-						.entity("{\"status\":\"FAIL\",\"message\":\"No file provided\"}")
+						.entity("{\"status\":\"FAIL\",\"message\":\"" +
+								uploadCheck.getMessage() + "\"}")
 						.build();
 			}
 
